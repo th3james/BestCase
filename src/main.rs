@@ -1,3 +1,5 @@
+use std::env;
+
 fn best_case(input: &str) -> String {
     let mut best_cased = input.chars().fold("".to_string(), |mut res, c| {
         let chr = c.to_uppercase().collect::<String>();
@@ -11,8 +13,15 @@ fn best_case(input: &str) -> String {
 }
 
 fn main() {
+    let mut args = env::args();
+    args.next(); // Don't don't care about filename
+    let input = args.fold(String::new(), |mut res, arg| {
+        res.push_str(arg.as_str());
+        res.push(' ');
+        res
+    });
     println!(
-        "{}", best_case("Returns the first element of a slice, or None if it is empty.")
+        "{}", best_case(input.as_str())
     );
 }
 
